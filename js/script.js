@@ -40,20 +40,44 @@ const team = [
 
 const teamContainer = document.querySelector('.team-container');
 
-for (let i = 0; i < team.length; i++) {
-  const membro= team[i];
-  teamContainer.innerHTML+=`
-    <div div class="team-card" >
-      <div class="card-image">
-        <img
-          src="img/${membro.image}"
-          alt="${membro.name}"
-        />
-      </div>
-      <div class="card-text">
-        <h3>${membro.name}</h3>
-        <p>${membro.role}</p>
-      </div>
-    </div >
-  ` 
+function printMember(container, teamlist){
+  container.innerHTML='';
+
+  for (let i = 0; i < teamlist.length; i++) {
+    const membro= teamlist[i];
+    container.innerHTML+=`
+      <div div class="team-card" >
+        <div class="card-image">
+          <img
+            src="img/${membro.image}"
+            alt="${membro.name}"
+          />
+        </div>
+        <div class="card-text">
+          <h3>${membro.name}</h3>
+          <p>${membro.role}</p>
+        </div>
+      </div >
+    ` ;
+  }
+
 }
+
+printMember(teamContainer, team);
+
+const button = document.getElementById('addMemberButton');
+button.addEventListener('click', function(){
+  const newName = document.getElementById('name').value;
+  const newRole = document.getElementById('role').value;
+  const newImage = document.getElementById('image').value;
+
+  const member={
+    name: newName,
+    role: newRole,
+    image: newImage
+  }
+
+  team.push(member);
+
+  printMember(teamContainer, team);
+})
